@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
   const btnConoceMas = document.getElementById("btn-conoce-mas");
   const sobreNosotros = document.getElementById("sobre-nosotros");
 
@@ -119,6 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  /* 🌟 --- NUEVO: menú hamburguesa responsive --- 🌟 */
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      // Cambia el ícono ☰ a ✖️ cuando el menú está abierto
+      menuToggle.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
+    });
+  }
 });
+
 
 
