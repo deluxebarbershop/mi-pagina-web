@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrar Barbería · ClipBarber</title>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="navbar container">
+    <a class="brand" href="index.html">
+      <img src="assets/foto5.png" alt="ClipBarber" class="logo-horizontal">
+    </a>
+    <nav>
+      <a href="barberias.html">Barberías</a>
+      <a href="registrar.html">Registrar barbería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="cta">
+      <a class="btn" href="reservas.html">Agendar</a>
+    </div>
+  </div>
+</header>
+
+<main class="container section">
+  <h1>Registrar nueva barbería</h1>
+
+  <form id="formBarberia" class="card" style="display:grid; gap:14px;">
+    <div class="field">
+      <label for="name">Nombre</label>
+      <input type="text" id="name" required>
+    </div>
+
+    <div class="field">
+      <label for="address">Dirección</label>
+      <input type="text" id="address">
+    </div>
+
+    <div class="field">
+      <label for="city">Ciudad</label>
+      <input type="text" id="city">
+    </div>
+
+    <div class="field">
+      <label for="phone">Teléfono</label>
+      <input type="text" id="phone">
+    </div>
+
+    <div class="field">
+      <label for="whatsapp">WhatsApp</label>
+      <input type="text" id="whatsapp">
+    </div>
+
+    
+    <div class="field">
+      <label>Servicios y precios</label>
+      <div id="servicesList"></div>
+      <div style="display:flex; gap:10px; margin-top:8px;">
+        <input type="text" id="serviceName" placeholder="Nombre del servicio">
+        <input type="number" id="servicePrice" placeholder="Precio">
+        <button type="button" class="btn" id="addService">+</button>
+      </div>
+    </div>
+
+    
+    <div class="field">
+      <label for="logo">Logo de la barbería</label>
+      <input type="file" id="logo" name="logo" accept="image/*">
+    </div>
+
+    
+    <div class="field">
+      <label for="photos">Fotos de la barbería</label>
+      <input type="file" id="photos" name="photos" accept="image/*" multiple>
+    </div>
+
+    <button type="submit" class="btn">Guardar barbería</button>
+    <button type="button" id="btnclear" class="btn ghost">Borrar todas</button>
+  </form>
+</main>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> ClipBarber.</div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+let servicesArr = [];
+
+document.getElementById("addService").addEventListener("click", () => {
+  const name = document.getElementById("serviceName").value;
+  const price = document.getElementById("servicePrice").value;
+
+  if (!name || !price) {
+    alert("Escribe el nombre y el precio del servicio.");
+    return;
+  }
+
+  servicesArr.push({name, price});
+  renderServices();
+  document.getElementById("serviceName").value = "";
+  document.getElementById("servicePrice").value = "";
+});
+
+function renderServices(){
+  const list = document.getElementById("servicesList");
+  list.innerHTML = servicesArr.map((s,i) => `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; padding:6px; background:#0f1319; border-radius:8px;">
+      <span>${s.name} - $${s.price}</span>
+      <button type="button" onclick="removeService(${i})" style="background:red; border:none; color:white; padding:4px 8px; border-radius:6px; cursor:pointer;">x</button>
+    </div>
+  `).join("");
+}
+
+function removeService(i){
+  servicesArr.splice(i,1);
+  renderServices();
+}
+
+
+document.getElementById("formBarberia").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const address = document.getElementById("address").value;
+  const city = document.getElementById("city").value;
+  const phone = document.getElementById("phone").value;
+  const whatsapp = document.getElementById("whatsapp").value;
+
+  const logoFile = document.getElementById("logo").files[0];
+  const files = document.getElementById("photos").files;
+
+  const newItem = {
+    id: Date.now(),
+    name,
+    address,
+    city,
+    phone,
+    whatsapp,
+    services: servicesArr
+  };
+
+  await saveBarberia(newItem, files, logoFile);
+
+  toast("Barbería registrada con servicios, logo y fotos");
+  e.target.reset();
+  servicesArr = [];
+  renderServices();
+});
+</script>
+</body>
+</html>
+
+

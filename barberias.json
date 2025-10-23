@@ -1,0 +1,108 @@
+[
+  {
+    "id": 1,
+    "name": "Barber Studio Laureles",
+    "description": "Especialistas en fades y perfilado de barba. Ambiente cómodo y música urbana.",
+    "address": "Circular 3 #70-30",
+    "city": "Medellín",
+    "lat": 6.2442,
+    "lng": -75.5812,
+    "phone": "3001234567",
+    "whatsapp": "+573001234567",
+    "rating": 4.8,
+    "numReviews": 236,
+    "services": [
+      {
+        "name": "Corte",
+        "price": 22000
+      },
+      {
+        "name": "Barba",
+        "price": 18000
+      },
+      {
+        "name": "Perfilado",
+        "price": 12000
+      }
+    ],
+    "tags": [
+      "Fades",
+      "Barba",
+      "Perfilado"
+    ],
+    "photos": [
+      "assets/slider1.jpg.jpg",
+      "assets/slider2.jpg.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Kings Barber Shop",
+    "description": "Cortes clásicos y modernos. Atención con cita previa.",
+    "address": "Calle 45 #10-20",
+    "city": "Bogotá",
+    "lat": 4.711,
+    "lng": -74.0721,
+    "phone": "3109876543",
+    "whatsapp": "+573109876543",
+    "rating": 4.6,
+    "numReviews": 154,
+    "services": [
+      {
+        "name": "Corte",
+        "price": 25000
+      },
+      {
+        "name": "Barba",
+        "price": 20000
+      },
+      {
+        "name": "Tinte",
+        "price": 35000
+      }
+    ],
+    "tags": [
+      "Clásico",
+      "Tinte",
+      "Barba"
+    ],
+    "photos": [
+      "assets/slider3.jpg.webp"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Fade Masters Cali",
+    "description": "Expertos en diseños y degradados artísticos.",
+    "address": "Cra 66 #12-34",
+    "city": "Cali",
+    "lat": 3.4516,
+    "lng": -76.532,
+    "phone": "3155554444",
+    "whatsapp": "+573155554444",
+    "rating": 4.9,
+    "numReviews": 312,
+    "services": [
+      {
+        "name": "Corte",
+        "price": 20000
+      },
+      {
+        "name": "Diseño",
+        "price": 28000
+      },
+      {
+        "name": "Perfilado",
+        "price": 15000
+      }
+    ],
+    "tags": [
+      "Diseños",
+      "Degradados",
+      "Perfilado"
+    ],
+    "photos": [
+      "assets/slider2.jpg.jpg"
+    ]
+  }
+]

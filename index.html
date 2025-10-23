@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DELUXE BARBER SHOP · Encuentra y agenda en barberías cerca de ti</title>
+  <link href="styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="DELUXE BARBER SHOP: descubre, compara, lee reseñas y reserva tu cita en segundos.">
+</head>
+<body>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <img src="assets/foto5.png" alt="DELUXE BARBER SHOP" class="logo-horizontal">
+    </a>
+
+    <nav>
+      <a href="barberias.html">Barberías</a>
+      <a href="registrar.html">Registrar barbería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <div class="cta">
+      <a class="btn" href="reservas.html">Agendar</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero container">
+    <div class="headline">
+      <h1>Encuentra tu próxima <span style="color:var(--primary)">barbería</span> en segundos</h1>
+      <p>Explora, compara reseñas reales, mira servicios y precios, y agenda tu cita al instante. Todo en un solo lugar.</p>
+    </div>
+
+    <form class="search-card" action="barberias.html" method="GET" aria-label="Buscar barberías">
+      <div class="search-row">
+        <div class="field">
+          <label for="q">¿Qué buscas?</label>
+          <input id="q" name="q" type="text" placeholder="Degradado, barbería, cejas..." autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="city">Ciudad</label>
+          <input id="city" name="city" type="text" placeholder="Medellín, Bogotá, Cali...">
+        </div>
+        <div class="field">
+          <label for="service">Servicio</label>
+          <select id="service" name="service">
+            <option value="">Todos</option>
+            <option>Corte</option>
+            <option>Barba</option>
+            <option>Perfilado</option>
+            <option>Tinte</option>
+            <option>Diseño</option>
+          </select>
+        </div>
+        <div class="field" style="align-self:end">
+          <button class="btn" type="submit">Buscar</button>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <span class="badge">Reseñas verificadas</span>
+        <span class="badge">Pagos en sitio</span>
+        <span class="badge">WhatsApp directo</span>
+      </div>
+    </form>
+  </section>
+
+  <section class="section container">
+    <div class="carousel">
+      <div class="carousel-track">
+        <img src="assets/foto1.png" alt="Barbería 1">
+        <img src="assets/foto2.png" alt="Barbería 2">
+        <img src="assets/foto3.png" alt="Barbería 3">
+        <img src="assets/foto4.png" alt="Barbería 4">
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="banner">
+      <div>
+        <h2>¿Tienes una barbería?</h2>
+        <p class="subtitle">Únete gratis, publica tus servicios, precios y fotos, y permite que miles de clientes reserven en segundos.</p>
+      </div>
+      <div style="display:flex; gap:10px; justify-content:flex-end; align-items:center">
+        <!-- Este botón ahora hace scroll a #conocenos -->
+        <a class="btn ghost" id="btn-conoce-mas" href="#conocenos">Conocer más</a>
+        <a class="btn" href="registrar.html">Registrar mi barbería</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVA SECCIÓN: Conócenos (visible, hacia donde scrollea el botón) -->
+  <section id="conocenos" class="section container" style="background:#0f1113; border-radius:12px; padding:36px; margin-top:30px;">
+    <h2 style="color:rgb(211, 188, 56); text-align:center; margin-bottom:18px;">Conócenos Más</h2>
+    <div style="max-width:900px; margin:0 auto; color:var(--muted); line-height:1.7; text-align:center;">
+      <p><strong>DELUXE BARBER SHOP</strong> creemos que la barbería va más allá de un simple corte: es una experiencia que combina estilo, confianza y tecnología. Somos una plataforma digital creada para conectar a los mejores barberos y barberías con personas que buscan un servicio personalizado, rápido y seguro.</p>
+      <p>Nuestra misión es transformar la manera en que se agenda y disfruta un servicio de barbería, brindando herramientas digitales que impulsen el crecimiento de los profesionales y ofrezcan comodidad a los clientes.
+        En Deluxe, tradición y modernidad se unen para darle una nueva era a las barberías.</p>
+    </div>
+  </section>
+
+  <!-- Sección Servicios (igual que antes) -->
+  <section class="section container" id="servicios" style="text-align:center;">
+    <h2 style="color:var(--primary);">Nuestros Servicios</h2>
+    <p class="subtitle">Ofrecemos atención integral para que disfrutes una experiencia completa y personalizada.</p>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:24px;">
+      <div class="card">
+        <h3>Agendamiento Inteligente</h3>
+        <p>Olvídate de las esperas y las llamadas. Con nuestro sistema de reserva en línea, puedes agendar tu cita fácilmente, elegir tu barbero de confianza y seleccionar el horario que mejor se adapte a ti. Todo desde tu celular o computador, en pocos clics.</p>
+      </div>
+      <div class="card">
+        <h3>Directorio de Barberías Certificadas</h3>
+        <p>Accede a un catálogo confiable de barberías verificadas en tu ciudad. Conoce sus servicios, precios, horarios, reseñas y ubicación. Encuentra el lugar perfecto según tu estilo, sin complicaciones.</p>
+      </div>
+      <div class="card">
+        <h3>Comunidad y Reseñas</h3>
+        <p>Creemos en el poder de la confianza. Por eso, cada usuario puede valorar y comentar su experiencia, ayudando a otros a elegir con seguridad y fomentando la mejora continua de los profesionales del sector.</p>
+      </div>
+      <div class="card">
+        <h3>Planes de Crecimiento y Visibilidad</h3>
+        <p>Apoyamos a los barberos y barberías en su proceso de expansión digital. Con nuestros planes premium, podrán destacar sus perfiles, acceder a herramientas de promoción personalizada y atraer nuevos clientes, aumentando su presencia en el mercado digital.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer actualizado con enlaces a privacidad/terminos y redes (links de ejemplo) -->
+<footer class="footer">
+  <div class="container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:32px;">
+    <div>
+      <h3 style="color:var(--primary); margin-bottom:12px;">DELUXE BARBER SHOP</h3>
+      <p style="color:var(--muted);">donde la tradición de la barbería se une con la innovación digital para ofrecerte estilo, confianza y comodidad en un solo lugar.</p>
+    </div>
+
+    <div>
+      <h4 style="color:var(--primary); margin-bottom:12px;">Enlaces útiles</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2;">
+        <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+        <li><a href="terminos.html">Términos y Condiciones</a></li>
+        <li><a href="contacto.html">Contáctanos</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="color:var(--primary); margin-bottom:12px;">Síguenos</h4>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <!-- enlaces de ejemplo; reemplázalos por los reales cuando quieras -->
+        <a href="https://www.instagram.com/example" target="_blank"><img src="assets/instagram.png.jpeg" alt="Instagram" width="26" height="26"></a>
+        <a href="https://www.facebook.com/example" target="_blank"><img src="assets/facebook.png.png" alt="Facebook" width="26" height="26"></a>
+        <a href="https://wa.me/573001234567" target="_blank"><img src="assets/whatsapp.png.png" alt="WhatsApp" width="26" height="26"></a>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:40px; border-top:1px solid rgba(255,255,255,.08); padding-top:16px; font-size:14px; color:var(--muted);">
+    © <span id="year"></span> DELUXE BARBER SHOP. Todos los derechos reservados.
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+  // año en footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // scroll suave para "Conocer más" (botón)
+  document.addEventListener("DOMContentLoaded", function () {
+    const btnConoceMas = document.getElementById("btn-conoce-mas");
+    const destino = document.getElementById("conocenos");
+    if (btnConoceMas && destino) {
+      btnConoceMas.addEventListener("click", function (e) {
+        e.preventDefault();
+        destino.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  });
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68e9d48e43668619506697a1/1j78mcjt5';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+</html>
+
+
+
+
+
+
+
+
+

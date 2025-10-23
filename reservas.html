@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendar cita · ClipBarber</title>
+  <link href="styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <img src="assets/foto5.png" alt="ClipBarber Logo" class="logo-horizontal">
+    </a>
+    <nav>
+      <a href="barberias.html">Barberías</a>
+      <a href="registrar.html">Registrar barbería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container section">
+  <h1>Agendar cita</h1>
+  <p class="subtitle">Selecciona la barbería, el servicio y la hora que más te convenga.</p>
+
+  <form id="formReserva" class="card" style="display:grid; gap:14px;">
+    <div class="field">
+      <label for="barberia">Barbería</label>
+      <select id="barberia" required>
+        <option value="">Selecciona una barbería</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="servicio">Servicio</label>
+      <select id="servicio" required>
+        <option value="">Selecciona un servicio</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" required>
+    </div>
+
+    <div class="field">
+      <label for="hora">Hora</label>
+      <input type="time" id="hora" required>
+    </div>
+
+    <div class="field">
+      <label for="nombre">Tu nombre</label>
+      <input type="text" id="nombre" required>
+    </div>
+
+    <div class="field">
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" required>
+    </div>
+
+    <button type="submit" class="btn">Agendar cita</button>
+  </form>
+</main>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> ClipBarber.</div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+
+(async function loadBarberiasForReserva(){
+  const list = await loadBarberias();
+  const select = document.getElementById("barberia");
+
+  list.forEach(b => {
+    const option = document.createElement("option");
+    option.value = b.id;
+    option.textContent = b.name;
+    select.appendChild(option);
+  });
+
+  
+  select.addEventListener("change", () => {
+    const selected = list.find(b => b.id == select.value);
+    const servicioSelect = document.getElementById("servicio");
+    servicioSelect.innerHTML = '<option value="">Selecciona un servicio</option>';
+    if (selected && selected.services) {
+      selected.services.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.name;
+        opt.textContent = `${s.name} - $${s.price}`;
+        servicioSelect.appendChild(opt);
+      });
+    }
+  });
+})();
+
+
+document.getElementById("formReserva").addEventListener("submit", e => {
+  e.preventDefault();
+  toast("¡Tu cita ha sido agendada correctamente!");
+  e.target.reset();
+});
+</script>
+</body>
+</html>

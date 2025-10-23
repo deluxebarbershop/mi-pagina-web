@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barbería · DELUXE BARBER SHOP</title>
+  <link href="styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background:#111;
+      color:#fff;
+      margin:0;
+    }
+
+    /* ======= HEADER ======= */
+    header.site-header {
+      background: linear-gradient(90deg, #0f0f0f, #1a1a1a);
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #e8c95f;
+      letter-spacing: 1px;
+    }
+
+    .brand span.logo {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: url('assets/logo.png') center/contain no-repeat;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #e8c95f;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: #e8c95f;
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .cta .btn {
+      background: #e8c95f;
+      color: #111;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .cta .btn:hover {
+      background: #fff;
+      transform: scale(1.05);
+    }
+
+    @media(max-width: 720px){
+      header.site-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+      nav {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    /* ======= CONTENIDO ======= */
+    .card {
+      background:#1c1c1c;
+      border-radius:16px;
+      padding:20px;
+      margin-bottom:20px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .grid {
+      display:grid;
+      gap:20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    img {
+      width:100%;
+      max-height:400px;
+      object-fit:cover;
+      border-radius:12px;
+      cursor:pointer;
+      transition:transform .3s;
+    }
+
+    img:hover {
+      transform:scale(1.02);
+    }
+
+    h1 {
+      font-size:1.8rem;
+      margin:10px 0;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* ✨ Línea dorada bajo el título */
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #e8c95f;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    .rating {
+      display:flex;
+      align-items:center;
+      gap:4px;
+      font-size:1rem;
+      color:#e8c95f;
+    }
+
+    .rating span {
+      font-size:1rem;
+      color:#bbb;
+      margin-left:6px;
+    }
+
+    .tag {
+      display:inline-block;
+      background:#2a2a2a;
+      color:#ddd;
+      padding:6px 12px;
+      border-radius:12px;
+      margin:4px;
+      font-size:0.85rem;
+    }
+
+    .btn {
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:12px;
+      background:#e8c95f;
+      color:#000;
+      text-decoration:none;
+      font-weight:600;
+      transition:.2s;
+    }
+
+    .btn:hover {
+      background:#fff;
+    }
+
+    .btn.ghost {
+      background:#333;
+      color:#fff;
+    }
+
+    .btn.ghost:hover {
+      background:#444;
+    }
+
+    .review {
+      background:#2a2a2a;
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:12px;
+    }
+
+    .review strong {
+      font-size:1rem;
+      color:#fff;
+    }
+
+    .review div {
+      color:#e8c95f;
+      margin:4px 0;
+      font-size:1rem;
+    }
+
+    .review-form input,
+    .review-form textarea,
+    .review-form select {
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:none;
+      margin-bottom:10px;
+      background:#2a2a2a;
+      color:#fff;
+    }
+
+    .review-form button {
+      width:100%;
+      background:#e8c95f;
+      border:none;
+      padding:12px;
+      border-radius:12px;
+      color:#000;
+      font-weight:600;
+      cursor:pointer;
+      transition: .2s;
+    }
+
+    .review-form button:hover {
+      background:#fff;
+    }
+
+    table {
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0 8px;
+    }
+
+    table th {
+      text-align:left;
+      padding:10px;
+      color:#bbb;
+      font-weight:600;
+    }
+
+    table td {
+      background:#2a2a2a;
+      padding:12px;
+      border-radius:8px;
+    }
+
+    footer.footer {
+      background:#0b0d10;
+      padding:20px;
+      text-align:center;
+      color:#aaa;
+      font-size:0.9rem;
+      border-top:1px solid rgba(255,255,255,.1);
+    }
+
+    /* ======= GALERÍA ======= */
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    /* Imagen ampliada (modal) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 200;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal img {
+      width: 80%;
+      max-width: 900px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    .modal:active {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <span class="logo"></span>
+    DELUXE BARBER SHOP
+  </a>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="barberias.html">Barberías</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+
+  <div class="cta">
+    <a class="btn" id="btnBook">Agendar cita</a>
+  </div>
+</header>
+
+<main class="container section">
+  <div id="content"></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    © <span id="year"></span> DELUXE BARBER SHOP · Todos los derechos reservados.
+  </div>
+</footer>
+
+<div class="modal" id="imgModal">
+  <img id="modalImg" src="">
+</div>
+
+<script src="scripts.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(async () => {
+  const id = params.get('id');
+  const list = await loadBarberias();
+  const b = list.find(x => String(x.id) === String(id)) || list[0];
+
+  if(!b){ 
+    document.getElementById('content').innerHTML = '<div class="card">No se encontró la barbería.</div>'; 
+    return; 
+  }
+
+  document.title = b.name + ' · DELUXE BARBER SHOP';
+
+  // Mostrar logo si existe, de lo contrario usar la primera foto
+  const mainImage = b.logo ? b.logo : ((b.photos && b.photos.length) ? b.photos[0] : 'assets/slider1.jpg');
+
+  document.getElementById('content').innerHTML = `
+    <section class="grid">
+      <div class="card">
+        <img src="${mainImage}" alt="Logo o foto de ${b.name}" loading="lazy">
+        <h1>${b.name}</h1>
+        <div class="rating">${renderStars(b.rating||0)} <span id="reviewCount">(${b.numReviews||0} reseñas)</span></div>
+        <p class="meta">${b.address||''} ${b.city? '• '+b.city : ''}</p>
+        <div class="tags">${(b.tags||['Cortes','Barba','Perfilado']).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+
+      <div class="card">
+        <h3>Contacto</h3>
+        <p class="meta">Tel: ${b.phone||'—'}<br>WhatsApp: ${b.whatsapp||'—'}</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          ${b.whatsapp ? `<a class="btn" target="_blank" href="https://wa.me/${b.whatsapp.replace(/[^0-9]/g,'')}?text=Hola%20${encodeURIComponent(b.name)}">WhatsApp</a>` : ''}
+          <a class="btn ghost" href="reservas.html?id=${encodeURIComponent(b.id)}">Agendar cita</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Servicios y precios</h3>
+        <table>
+          <thead><tr><th>Servicio</th><th>Precio</th></tr></thead>
+          <tbody>
+            ${(b.services||[]).map(s=>`<tr><td>${s.name}</td><td>${money(s.price||0)}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Reseñas</h3>
+        <div id="reviews"></div>
+        <div class="review-form">
+          <h4>Deja tu reseña</h4>
+          <input type="text" id="reviewerName" placeholder="Tu nombre">
+          <select id="reviewRating">
+            <option value="5">⭐⭐⭐⭐⭐ - Excelente</option>
+            <option value="4">⭐⭐⭐⭐ - Muy bueno</option>
+            <option value="3">⭐⭐⭐ - Bueno</option>
+            <option value="2">⭐⭐ - Regular</option>
+            <option value="1">⭐ - Malo</option>
+          </select>
+          <textarea id="reviewText" rows="3" placeholder="Escribe tu reseña..."></textarea>
+          <button id="submitReview">Enviar reseña</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Galería</h3>
+        <div class="galeria-grid" id="galeria"></div>
+      </div>
+    </section>
+  `;
+
+  // Reseñas
+  const reviewsEl = document.getElementById("reviews");
+  const storedReviews = JSON.parse(localStorage.getItem("reviews_"+b.id) || "[]");
+
+  function renderReviews(){
+    reviewsEl.innerHTML = storedReviews.map(r => `
+      <div class="review">
+        <strong>${r.name}</strong>
+        <div>${"⭐".repeat(r.rating)}</div>
+        <p>${r.text}</p>
+      </div>
+    `).join("");
+    document.getElementById("reviewCount").textContent = `(${storedReviews.length} reseñas)`;
+  }
+  renderReviews();
+
+  document.getElementById("submitReview").addEventListener("click", () => {
+    const name = document.getElementById("reviewerName").value.trim();
+    const rating = parseInt(document.getElementById("reviewRating").value);
+    const text = document.getElementById("reviewText").value.trim();
+
+    if(!name || !text){ alert("Por favor completa todos los campos."); return; }
+
+    storedReviews.push({name, rating, text});
+    localStorage.setItem("reviews_"+b.id, JSON.stringify(storedReviews));
+
+    document.getElementById("reviewerName").value = "";
+    document.getElementById("reviewText").value = "";
+    renderReviews();
+  });
+
+  document.getElementById('btnBook').addEventListener('click', ()=> {
+    location.href = 'reservas.html?id='+encodeURIComponent(b.id);
+  });
+
+  // Galería con ampliación
+  if (b.photos && b.photos.length){
+    const galeria = document.getElementById("galeria");
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+
+    b.photos.forEach(foto=>{
+      const img = document.createElement("img");
+      img.src = foto;
+      img.addEventListener("click", ()=>{
+        modalImg.src = foto;
+        modal.style.display = "flex";
+      });
+      galeria.appendChild(img);
+    });
+
+    modal.addEventListener("click", ()=>{
+      modal.style.display = "none";
+    });
+  }
+})();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

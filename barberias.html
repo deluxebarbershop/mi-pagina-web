@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> BARBERIAS DISPONIBLES</title>
+  <link href="styles.css" rel="stylesheet">
+  <style>
+    /* Ajustes visuales específicos para este apartado */
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #d4af37; /* dorado elegante */
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .card-barberia {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(212,175,55,0.15);
+    }
+
+    .card-barberia:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(212,175,55,0.4);
+    }
+
+    .card-barberia img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-barberia h3 {
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card-barberia .meta {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background-color: #d4af37;
+      color: #000;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    footer {
+      background-color: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+      border-top: 1px solid #333;
+    }
+
+    .navbar a {
+      color: #d4af37;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #d4af37;
+    }
+
+    .logo-horizontal {
+      height: 60px;
+    }
+
+    .site-header {
+      background-color: #000;
+      border-bottom: 1px solid #333;
+      padding: 1rem 0;
+    }
+
+    .container.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 2rem;
+    }
+
+    .cta .btn {
+      background-color: #d4af37;
+      color: #000;
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <img src="assets/foto5.png" alt="DELUXE BARBER SHOP" class="logo-horizontal">
+    </a>
+
+    <nav>
+      <a href="barberias.html" class="active">Barberías</a>
+      <a href="registrar.html">Registrar barbería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <div class="cta">
+      <a class="btn" href="reservas.html">Agendar</a>
+    </div>
+  </div>
+</header>
+
+<main class="container section">
+  <h1>💈 BARBERIAS DISPONIBLES 💈</h1>
+  <div id="barberiasList" class="grid"></div>
+</main>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> DELUXE BARBER SHOP — Todos los derechos reservados</div>
+</footer>
+
+<script src="scripts.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+async function renderList(){
+  const list = await loadBarberias();
+  const container = document.getElementById("barberiasList");
+  container.innerHTML = "";
+
+  if (!list.length){
+    container.innerHTML = "<p style='text-align:center;'>No hay barberías registradas por el momento.</p>";
+    return;
+  }
+
+  list.forEach(b => {
+    const card = document.createElement("div");
+    card.className = "card-barberia";
+
+    const logo = b.logo ? `<img src="${b.logo}" alt="Logo de ${b.name}">` : "";
+    const photo = (b.photos && b.photos.length) ? 
+      `<img src="${b.photos[0]}" alt="Foto de ${b.name}">` 
+      : "";
+
+    card.innerHTML = `
+      ${logo || photo}
+      <h3>${b.name}</h3>
+      <p class="meta">${b.address || ''} ${b.city ? '• ' + b.city : ''}</p>
+      <a class="btn" href="barberia.html?id=${b.id}">Ver barbería</a>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+renderList();
+</script>
+</body>
+</html>
+
+
+
+
+

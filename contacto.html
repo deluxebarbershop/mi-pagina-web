@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto · ClipBarber</title>
+  <link href="styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <img src="assets/foto5.png" alt="ClipBarber Logo" class="logo-horizontal">
+    </a>
+    <nav>
+      <a href="barberias.html">Barberías</a>
+      <a href="registrar.html">Registrar barbería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container section">
+  <section class="card" style="display:grid; gap:14px">
+    <h1>Contacto</h1>
+    <p class="subtitle">¿Tienes dudas, sugerencias o quieres hacer parte del marketplace? Escríbenos.</p>
+    <form action="mailto:tuequipo@clipbarber.com" method="post" enctype="text/plain" style="display:grid; gap:10px">
+      <div class="grid" style="gap:10px">
+        <div style="grid-column: span 6"><label>Nombre<input required name="nombre"></label></div>
+        <div style="grid-column: span 6"><label>Correo<input required type="email" name="email"></label></div>
+        <div style="grid-column: span 12"><label>Mensaje<textarea required name="mensaje" rows="5" style="width:100%;border-radius:12px;background:#0e1116;border:1px solid rgba(255,255,255,.1);color:var(--text);padding:10px"></textarea></label></div>
+      </div>
+      <button class="btn" type="submit">Enviar</button>
+      <small class="meta">* En producción usa un backend o un servicio como Formspree/EmailJS.</small>
+    </form>
+  </section>
+</main>
+
+<footer class="footer"><div class="container">© <span id="year"></span> ClipBarber.</div></footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
+
