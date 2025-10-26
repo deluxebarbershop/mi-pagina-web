@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrar Barbería · ClipBarber</title>
+  <title>Registrar Barbería · Deluxe Barber Shop</title>
   <link href="styles.css" rel="stylesheet">
 </head>
 <body>
 <header class="site-header">
   <div class="navbar container">
     <a class="brand" href="index.html">
-      <img src="assets/foto5.png" alt="ClipBarber" class="logo-horizontal">
+      <img src="assets/foto5.png" alt="Deluxe Barber Shop" class="logo-horizontal">
     </a>
     <nav>
       <a href="barberias.html">Barberías</a>
@@ -52,7 +52,6 @@
       <input type="text" id="whatsapp">
     </div>
 
-    
     <div class="field">
       <label>Servicios y precios</label>
       <div id="servicesList"></div>
@@ -63,13 +62,11 @@
       </div>
     </div>
 
-    
     <div class="field">
       <label for="logo">Logo de la barbería</label>
       <input type="file" id="logo" name="logo" accept="image/*">
     </div>
 
-    
     <div class="field">
       <label for="photos">Fotos de la barbería</label>
       <input type="file" id="photos" name="photos" accept="image/*" multiple>
@@ -81,10 +78,9 @@
 </main>
 
 <footer class="footer">
-  <div class="container">© <span id="year"></span> ClipBarber.</div>
+  <div class="container">© <span id="year"></span> Deluxe Barber Shop.</div>
 </footer>
 
-<script src="scripts.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -120,7 +116,6 @@ function removeService(i){
   renderServices();
 }
 
-
 document.getElementById("formBarberia").addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -145,13 +140,69 @@ document.getElementById("formBarberia").addEventListener("submit", async e => {
 
   await saveBarberia(newItem, files, logoFile);
 
-  toast("Barbería registrada con servicios, logo y fotos");
+  alert("Barbería registrada con éxito ✅");
   e.target.reset();
   servicesArr = [];
   renderServices();
 });
 </script>
+
+<!-- 🔥 Conexión a Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
+
+  // Configuración de tu Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBCFsX78jkxeRO-q0iyVSHe-aEYv0JEZew",
+    authDomain: "deluxe-barber-shop-5e9c8.firebaseapp.com",
+    projectId: "deluxe-barber-shop-5e9c8",
+    storageBucket: "deluxe-barber-shop-5e9c8.firebasestorage.app",
+    messagingSenderId: "138851802233",
+    appId: "1:138851802233:web:dc73c59db611d8292e08a8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // 🔹 Función global para guardar la barbería
+  window.saveBarberia = async function (barberia, fotos, logoFile) {
+    try {
+      let logoURL = "";
+      const fotosURLs = [];
+
+      if (logoFile) {
+        const logoRef = ref(storage, `logos/${barberia.id}_${logoFile.name}`);
+        await uploadBytes(logoRef, logoFile);
+        logoURL = await getDownloadURL(logoRef);
+      }
+
+      for (let file of fotos) {
+        const fotoRef = ref(storage, `fotos/${barberia.id}_${file.name}`);
+        await uploadBytes(fotoRef, file);
+        const url = await getDownloadURL(fotoRef);
+        fotosURLs.push(url);
+      }
+
+      await addDoc(collection(db, "barberias"), {
+        ...barberia,
+        logo: logoURL,
+        fotos: fotosURLs,
+        fechaRegistro: new Date().toISOString()
+      });
+
+      alert("✅ Barbería guardada en Firebase correctamente.");
+    } catch (error) {
+      console.error("Error al guardar:", error);
+      alert("❌ Error al guardar la barbería.");
+    }
+  };
+</script>
+
 </body>
 </html>
+
 
 
