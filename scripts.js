@@ -134,3 +134,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+/* 🚀 Conexión con Firebase y Firestore */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBCFsX78jkxeRO-q0iyVSHe-aEYv0JEZew",
+  authDomain: "deluxe-barber-shop-5e9c8.firebaseapp.com",
+  projectId: "deluxe-barber-shop-5e9c8",
+  storageBucket: "deluxe-barber-shop-5e9c8.firebasestorage.app",
+  messagingSenderId: "138851802233",
+  appId: "1:138851802233:web:dc73c59db611d8292e08a8"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* 🔹 Reemplaza el loadBarberias antiguo por esta versión */
+window.loadBarberias = async function() {
+  try {
+    const barberiasCol = collection(db, "barberias");
+    const barberiasSnapshot = await getDocs(barberiasCol);
+    const barberiasList = barberiasSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return barberiasList;
+  } catch (error) {
+    console.error("Error al cargar barberías desde Firestore:", error);
+    return [];
+  }
+};
+
+/* 🔹 Guarda barberías en Firebase */
+window.saveBarberia = async function(newItem) {
+  try {
+    await addDoc(collection(db, "barberias"), newItem);
+    toast("Barbería registrada correctamente en Firebase ✅");
+  } catch (error) {
+    console.error("Error al guardar la barbería:", error);
+    toast("Error al registrar la barbería ❌");
+  }
+};
+
+
+
+
