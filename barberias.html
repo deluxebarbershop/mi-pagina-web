@@ -156,44 +156,68 @@
   <div class="container">© <span id="year"></span> DELUXE BARBER SHOP — Todos los derechos reservados</div>
 </footer>
 
-<script  type="module" src="scripts.js"></script>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
+<script type="module">
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-async function renderList(){
-  const list = await loadBarberias();
-  const container = document.getElementById("barberiasList");
-  container.innerHTML = "";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-  if (!list.length){
-    container.innerHTML = "<p style='text-align:center;'>No hay barberías registradas por el momento.</p>";
-    return;
+  const firebaseConfig = {
+    apiKey: "AIzaSyBCFsX78jkxeRO-q0iyVSHe-aEYv0JEZew",
+    authDomain: "deluxe-barber-shop-5e9c8.firebaseapp.com",
+    projectId: "deluxe-barber-shop-5e9c8",
+    storageBucket: "deluxe-barber-shop-5e9c8.firebasestorage.app",
+    messagingSenderId: "138851802233",
+    appId: "1:138851802233:web:dc73c59db611d8292e08a8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function cargarBarberias() {
+    const container = document.getElementById("barberiasList");
+    container.innerHTML = "<p style='text-align:center;'>Cargando barberías...</p>";
+
+    try {
+      const snapshot = await getDocs(collection(db, "barberias"));
+      container.innerHTML = "";
+
+      if (snapshot.empty) {
+        container.innerHTML = "<p style='text-align:center;'>No hay barberías registradas.</p>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const b = doc.data();
+
+        const card = document.createElement("div");
+        card.className = "card-barberia";
+
+        const logo = b.logo ? `<img src="${b.logo}" alt="Logo de ${b.name}">` : "";
+        const foto = (b.fotos && b.fotos.length) ? `<img src="${b.fotos[0]}" alt="Foto de ${b.name}">` : "";
+
+        card.innerHTML = `
+          ${logo || foto || ""}
+          <h3>${b.name}</h3>
+          <p class="meta">${b.address || ''} ${b.city ? '• ' + b.city : ''}</p>
+          <p>📞 ${b.phone || 'Sin teléfono'}</p>
+          <p>💬 ${b.whatsapp || 'Sin WhatsApp'}</p>
+        `;
+
+        container.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error("Error al cargar barberías:", error);
+      container.innerHTML = "<p style='color:red;text-align:center;'>Error al conectar con Firebase.</p>";
+    }
   }
 
-  list.forEach(b => {
-    const card = document.createElement("div");
-    card.className = "card-barberia";
-
-    const logo = b.logo ? `<img src="${b.logo}" alt="Logo de ${b.name}">` : "";
-    const photo = (b.photos && b.photos.length) ? 
-      `<img src="${b.photos[0]}" alt="Foto de ${b.name}">` 
-      : "";
-
-    card.innerHTML = `
-      ${logo || photo}
-      <h3>${b.name}</h3>
-      <p class="meta">${b.address || ''} ${b.city ? '• ' + b.city : ''}</p>
-      <a class="btn" href="barberia.html?id=${b.id}">Ver barbería</a>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-renderList();
+  cargarBarberias();
 </script>
 </body>
 </html>
+
 
 
 

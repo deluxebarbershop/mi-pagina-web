@@ -1,3 +1,4 @@
+// ✅ Funciones básicas de ayuda
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
@@ -15,62 +16,9 @@ function renderStars(rating=0){
         </linearGradient>
       </defs>
       <path d="M12 2l2.9 6.1 6.7.6-5 4.4 1.5 6.7L12 16l-6.1 3.8 1.5-6.7-5-4.4 6.7-.6z"
-        fill="${fill}" stroke="${stroke}" stroke-width="1.5"/></svg>`
+        fill="${fill}" stroke="${stroke}" stroke-width="1.5"/></svg>`;
   }
   return `<span class="stars" title="${rating.toFixed(1)} de 5">${html}</span>`;
-}
-
-const money = (n, currency="COP") => new Intl.NumberFormat('es-CO', {style:'currency', currency}).format(n);
-
-async function loadBarberias(){
-  try {
-    const res = await fetch('barberias.json', {cache:'no-store'});
-    const base = await res.json();
-    const extra = JSON.parse(localStorage.getItem('barberias_extra')||'[]');
-    return [...base, ...extra];
-  } catch(e){
-    return JSON.parse(localStorage.getItem('barberias_extra')||'[]');
-  }
-}
-
-async function saveBarberia(newItem, files, logoFile){
-  const fotosBase64 = [];
-
-  if (files && files.length){
-    for (let f of files){
-      const base64 = await toBase64(f);
-      fotosBase64.push(base64);
-    }
-  }
-
-  if (logoFile){
-    newItem.logo = await toBase64(logoFile);
-  }
-
-  newItem.photos = fotosBase64;
-
-  const extra = JSON.parse(localStorage.getItem('barberias_extra')||'[]');
-  extra.push(newItem);
-  localStorage.setItem('barberias_extra', JSON.stringify(extra));
-}
-
-function toBase64(file){
-  return new Promise((resolve, reject)=>{
-    const reader = new FileReader();
-    reader.onload = ()=>resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-function distanceKm(lat1, lon1, lat2, lon2){
-  function toRad(d){return d*Math.PI/180}
-  const R = 6371;
-  const dLat = toRad(lat2-lat1);
-  const dLon = toRad(lon2-lon1);
-  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
 }
 
 function toast(msg, ms=2500){
@@ -81,18 +29,20 @@ function toast(msg, ms=2500){
   setTimeout(()=>{t.remove()}, ms);
 }
 
-const params = new URLSearchParams(location.search);
-
+// ✅ Menú activo
 (function highlightNav(){
   const path = location.pathname.split('/').pop();
   $$('nav a').forEach(a=>{
     if(a.getAttribute('href')===path){
       a.style.background = 'rgba(255,255,255,.08)';
     }
-  })
+  });
 })();
 
+// ✅ Cargar después de que la página esté lista
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Botón eliminar todas las barberías
   const btnClear = document.getElementById("btnclear");
   if (btnClear) {
     btnClear.addEventListener("click", () => {
@@ -104,37 +54,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Sección “Conoce más”
   const btnConoceMas = document.getElementById("btn-conoce-mas");
   const sobreNosotros = document.getElementById("sobre-nosotros");
-
   if (btnConoceMas && sobreNosotros) {
-    btnConoceMas.addEventListener("click", function (e) {
+    btnConoceMas.addEventListener("click", e => {
       e.preventDefault();
-      if (sobreNosotros.style.display === "block") {
-        sobreNosotros.style.display = "none";
-      } else {
-        sobreNosotros.style.display = "block";
-        sobreNosotros.scrollIntoView({ behavior: "smooth" });
-      }
+      sobreNosotros.style.display = 
+        sobreNosotros.style.display === "block" ? "none" : "block";
+      sobreNosotros.scrollIntoView({ behavior: "smooth" });
     });
   }
 
-  /* 🌟 --- NUEVO: menú hamburguesa responsive --- 🌟 */
+  // 🌟 Menú desplegable en celular
   const menuToggle = document.getElementById("menuToggle");
   const navMenu = document.getElementById("navMenu");
 
   if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", () => {
       navMenu.classList.toggle("active");
-      // Cambia el ícono ☰ a ✖️ cuando el menú está abierto
       menuToggle.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
     });
   }
+
 });
 
-
-
-/* 🚀 Conexión con Firebase y Firestore */
+// 🚀 Conexión con Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
@@ -150,7 +95,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* 🔹 Reemplaza el loadBarberias antiguo por esta versión */
+// 🔹 Cargar barberías desde Firebase
 window.loadBarberias = async function() {
   try {
     const barberiasCol = collection(db, "barberias");
@@ -166,7 +111,7 @@ window.loadBarberias = async function() {
   }
 };
 
-/* 🔹 Guarda barberías en Firebase */
+// 🔹 Guardar barberías en Firebase
 window.saveBarberia = async function(newItem) {
   try {
     await addDoc(collection(db, "barberias"), newItem);
@@ -176,6 +121,7 @@ window.saveBarberia = async function(newItem) {
     toast("Error al registrar la barbería ❌");
   }
 };
+
 
 
 
