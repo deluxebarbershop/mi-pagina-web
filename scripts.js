@@ -66,16 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🌟 Menú desplegable en celular
-  const menuToggle = document.getElementById("menuToggle");
-  const navMenu = document.getElementById("navMenu");
 
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-      menuToggle.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
-    });
-  }
 
 });
 
@@ -121,6 +112,23 @@ window.saveBarberia = async function(newItem) {
     toast("Error al registrar la barbería ❌");
   }
 };
+
+
+
+
+
+// 🌟 Menú desplegable en celular (versión corregida)
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      menuToggle.textContent = navMenu.classList.contains("active") ? "✖" : "☰";
+    });
+  }
+});
 
 
 

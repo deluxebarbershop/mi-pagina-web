@@ -377,7 +377,7 @@ nav a {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  nav {
+  #navMenu {
     position: absolute;
     top: 70px;
     right: 0;
@@ -391,7 +391,11 @@ nav a {
     z-index: 999;
   }
 
-  nav a {
+  #navMenu.active {
+    display: flex;
+  }
+
+  #navMenu a {
     margin: 10px 0;
     display: block;
   }
@@ -402,9 +406,5 @@ nav a {
 
   .menu-toggle {
     display: block;
-  }
-
-  nav.active {
-    display: flex;
   }
 }
