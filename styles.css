@@ -367,17 +367,14 @@ nav a {
   text-decoration: none;
 }
 
-/* ---------- Menú hamburguesa ---------- */
+/* ---------- Menú hamburguesa (nuevo con checkbox) ---------- */
 .menu-toggle {
   display: none;
-  font-size: 26px;
-  color: #c6a543;
-  cursor: pointer;
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  #navMenu {
+  /* Ocultar el menú por defecto en móvil */
+  nav {
     position: absolute;
     top: 70px;
     right: 0;
@@ -386,25 +383,30 @@ nav a {
     flex-direction: column;
     align-items: flex-start;
     padding: 15px;
-    display: none; /* Oculto por defecto */
     border-left: 1px solid #c6a543;
     z-index: 999;
+    display: none;
   }
 
-  #navMenu.active {
-    display: flex;
-  }
-
-  #navMenu a {
+  nav a {
     margin: 10px 0;
     display: block;
   }
 
-  .cta {
-    display: none; /* Oculta el botón de agendar cuando el menú se abre */
-  }
-
+  /* Mostrar el ícono del menú */
   .menu-toggle {
     display: block;
+    font-size: 28px;
+    color: #c6a543;
+    cursor: pointer;
+  }
+
+  /* Cuando el checkbox está marcado, muestra el menú */
+  #menuCheckbox:checked + nav {
+    display: flex;
+  }
+
+  .cta {
+    display: none;
   }
 }
