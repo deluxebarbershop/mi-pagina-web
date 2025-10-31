@@ -339,9 +339,10 @@ p {
 
 
 
-/* ---------- Encabezado base ---------- */
+/* ---------- Encabezado ---------- */
 .site-header {
   background-color: #0c0c0c;
+  color: #c6a543;
   padding: 10px 20px;
 }
 
@@ -349,15 +350,23 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
+/* Logo */
+.logo-horizontal {
+  height: 45px;
+}
+
+/* Menú base */
 nav a {
   color: #c6a543;
   text-decoration: none;
-  margin: 0 10px;
+  margin: 0 15px;
   font-weight: 500;
 }
 
+/* Botón */
 .btn {
   background-color: #c6a543;
   color: #000;
@@ -366,6 +375,40 @@ nav a {
   font-weight: 600;
   text-decoration: none;
 }
+
+/* ---------- Diseño responsive ---------- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Menú apilado a la derecha */
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  nav a {
+    display: block;
+    margin: 8px 0;
+  }
+
+  .cta {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+ 
+
+
+
+
+
 
 /* --- Ajustes solo para móviles --- */
 @media (max-width: 768px) {
