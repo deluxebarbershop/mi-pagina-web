@@ -119,6 +119,17 @@ window.saveBarberia = async function(newItem) {
 
 
 
+ //*menu amburguesa//*
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
 
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+      menuToggle.textContent = navMenu.classList.contains("show") ? "✖" : "☰";
+    });
+  }
+});
 
 
